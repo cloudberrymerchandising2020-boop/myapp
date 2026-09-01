@@ -2,6 +2,13 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 
 
+def build_greeting(name: str) -> str:
+    name = name.strip()
+    if name:
+        return f"Hello, {name}!"
+    return "Hello, stranger!"
+
+
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -15,8 +22,12 @@ class App(tk.Tk):
         menubar = tk.Menu(self)
 
         file_menu = tk.Menu(menubar, tearoff=0)
-        file_menu.add_command(label="Open...", command=self.open_file, accelerator="Cmd+O")
-        file_menu.add_command(label="Save As...", command=self.save_file, accelerator="Cmd+S")
+        file_menu.add_command(
+            label="Open...", command=self.open_file, accelerator="Cmd+O"
+        )
+        file_menu.add_command(
+            label="Save As...", command=self.save_file, accelerator="Cmd+S"
+        )
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.quit)
         menubar.add_cascade(label="File", menu=file_menu)
@@ -44,14 +55,13 @@ class App(tk.Tk):
         self.greet_button.grid(row=2, column=0, columnspan=2, pady=10)
 
     def on_greet(self):
-        name = self.name_entry.get().strip()
-        if name:
-            self.greeting_label.config(text=f"Hello, {name}!")
-        else:
-            self.greeting_label.config(text="Hello, stranger!")
+        name = self.name_entry.get()
+        self.greeting_label.config(text=build_greeting(name))
 
     def open_file(self):
-        path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        path = filedialog.askopenfilename(
+            filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
+        )
         if path:
             messagebox.showinfo("Opened", f"You picked:\n{path}")
 
