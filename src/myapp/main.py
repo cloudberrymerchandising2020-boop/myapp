@@ -13,7 +13,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("My App")
-        self.geometry("400x300")
+        self.geometry("500x400")
 
         self._build_menu()
         self._build_widgets()
@@ -54,6 +54,12 @@ class App(tk.Tk):
         self.greet_button = tk.Button(self, text="Greet", command=self.on_greet)
         self.greet_button.grid(row=2, column=0, columnspan=2, pady=10)
 
+        self.text = tk.Text(self, wrap="word", undo=True)
+        self.text.grid(row=3, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+
+        self.grid_rowconfigure(3, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+
     def on_greet(self):
         name = self.name_entry.get()
         self.greeting_label.config(text=build_greeting(name))
@@ -62,13 +68,29 @@ class App(tk.Tk):
         path = filedialog.askopenfilename(
             filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
         )
-        if path:
-            messagebox.showinfo("Opened", f"You picked:\n{path}")
+        if not path:
+            return
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read()
+        except OSError as e:
+            messagebox.showerror("Error", f"Could not open file:\n{e}")
+            return
+        self.text.delete("1.0", tk.END)
+        self.text.insert("1.0", content)
+        self.title(f"My App — {path}")
 
     def save_file(self):
         path = filedialog.asksaveasfilename(defaultextension=".txt")
-        if path:
-            messagebox.showinfo("Saved", f"Would save to:\n{path}")
+        if not path:
+            return
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(self.text.get("1.0", tk.END))
+        except OSError as e:
+            messagebox.showerror("Error", f"Could not save file:\n{e}")
+            return
+        self.title(f"My App — {path}")
 
     def show_about(self):
         messagebox.showinfo("About", "My App v0.1.0\nBuilt with Tkinter + Poetry.")
