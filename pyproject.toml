@@ -1,0 +1,21 @@
+[project]
+name = "myapp"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Kenneth Chua",email = "kennethchua474@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "myapp", from = "src"}]
+
+[tool.poetry.scripts]
+myapp = "myapp.main:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
