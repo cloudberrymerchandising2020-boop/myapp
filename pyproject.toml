@@ -3,7 +3,7 @@ name = "myapp"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Kenneth Chua",email = "kennethchua474@gmail.com"}
+    {name = "Kenneth Chua",email = "cloudberry.merchandising.2020@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.14"
