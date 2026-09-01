@@ -6,7 +6,7 @@ authors = [
     {name = "Kenneth Chua",email = "cloudberry.merchandising.2020@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.14,<3.16"
 dependencies = [
 ]
 
@@ -25,5 +25,6 @@ dev = [
     "ruff (>=0.16.5,<0.17.0)",
     "mypy (>=2.3.1,<3.0.0)",
     "pytest (>=9.1.1,<10.0.0)",
-    "pre-commit (>=4.6.2,<5.0.0)"
+    "pre-commit (>=4.6.2,<5.0.0)",
+    "pyinstaller (>=6.22.2,<7.0.0)"
 ]
